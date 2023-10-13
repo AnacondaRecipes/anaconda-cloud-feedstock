@@ -1,0 +1,4 @@
+channels:
+  - https://staging.continuum.io/prefect/fs/readchar-feedstock/pr2/a6196ad
+  - https://staging.continuum.io/prefect/fs/anaconda-cli-base-feedstock/pr1/14ddfbd
+  - https://staging.continuum.io/prefect/fs/anaconda-cloud-cli-feedstock/pr1/3650d11

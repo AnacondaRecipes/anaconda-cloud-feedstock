@@ -10,19 +10,18 @@ source:
   sha256: c5b63cb8787b4c3bbf7a533141bcae1ec4992d476ea42c3f7dbca1808ad543d2
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python >=3.8
+    - python
     - hatchling
     - hatch-vcs >=0.3
     - setuptools-scm >=7.1
     - pip
   run:
-    - python >=3.8
+    - python
     - anaconda-cloud-cli
     - anaconda-cloud-auth
 
@@ -36,12 +35,17 @@ test:
   commands:
     - anaconda --version
     - python -c "from anaconda_cloud import __version__; assert __version__ == \"{{ version }}\""
+    #- pip check # anaconda-anon-usage 0.4.3 requires conda, which is not installed.
+  requires:
+    - pip
 
 about:
   summary: Anaconda Cloud client tools
+  description: Anaconda Cloud client tools
   home: https://anaconda.cloud
   license: BSD-3-Clause
   license_file: LICENSE
+  license_family: BSD
 
 extra:
   recipe-maintainers:
