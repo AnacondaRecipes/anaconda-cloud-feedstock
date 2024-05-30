@@ -11,7 +11,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -46,8 +46,12 @@ about:
   license: BSD-3-Clause
   license_file: LICENSE
   license_family: BSD
+  doc_url: https://anaconda.cloud/
+  dev_url: https://anaconda.cloud/
 
 extra:
   recipe-maintainers:
     - albertdefusco
     - mattkram
+  skip-lints:
+    - missing_pip_check
