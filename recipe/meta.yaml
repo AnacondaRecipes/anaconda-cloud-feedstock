@@ -39,9 +39,11 @@ test:
   commands:
     - anaconda --version
     - python -c "from anaconda_cloud import __version__; assert __version__ == \"{{ version }}\""
-    #- pip check # anaconda-anon-usage 0.4.3 requires conda, which is not installed.
+    - pip check
+    - pytest -vv
   requires:
     - pip
+    - pytest
 
 about:
   summary: Anaconda Cloud client tools
