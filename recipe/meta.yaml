@@ -22,7 +22,6 @@ requirements:
     - pip
   run:
     - python
-    - anaconda-cloud-cli
     - anaconda-cloud-auth 0.7.2
     - anaconda-cli-base
     - anaconda-client >=1.12.2
@@ -34,16 +33,13 @@ test:
     - anaconda_cloud
     - anaconda_cli_base
     - anaconda_cloud_auth
-    - anaconda_cloud_cli
-    - binstar_client
   commands:
     - anaconda --version
     - python -c "from anaconda_cloud import __version__; assert __version__ == \"{{ version }}\""
     - pip check
-    - pytest -vv
   requires:
     - pip
-    - pytest
+    # Cannot run pytest since PyPI lacks tests
 
 about:
   summary: Anaconda Cloud client tools
