@@ -1,5 +1,5 @@
 {% set name = "anaconda-cloud" %}
-{% set version = "0.1.0" %}
+{% set version = "0.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/anaconda_cloud-{{ version }}.tar.gz
-  sha256: c5b63cb8787b4c3bbf7a533141bcae1ec4992d476ea42c3f7dbca1808ad543d2
+  sha256: f32735de262aa3d10899b3e945b6f76a12f9f73f02e72d7694416680bee319dd
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  skip: True  # [py<38]
+  number: 0
 
 requirements:
   host:
@@ -22,22 +23,27 @@ requirements:
     - pip
   run:
     - python
-    - anaconda-cloud-cli
     - anaconda-cloud-auth
+    - anaconda-cli-base
+    - anaconda-client >=1.12.2
+    - conda
+    - backports
 
 test:
   imports:
     - anaconda_cloud
     - anaconda_cli_base
     - anaconda_cloud_auth
-    - anaconda_cloud_cli
+    # binstar_client kept for backward compatibility
     - binstar_client
   commands:
     - anaconda --version
     - python -c "from anaconda_cloud import __version__; assert __version__ == \"{{ version }}\""
-    #- pip check # anaconda-anon-usage 0.4.3 requires conda, which is not installed.
+    # Latest anaconda-cloud-auth 0.8.4 not on PyPI and not necessary as a dep
+    # - pip check
   requires:
     - pip
+    # Cannot run pytest since PyPI lacks tests
 
 about:
   summary: Anaconda Cloud client tools
@@ -47,11 +53,9 @@ about:
   license_file: LICENSE
   license_family: BSD
   doc_url: https://anaconda.cloud/
-  dev_url: https://anaconda.cloud/
+  dev_url: https://github.com/anaconda/anaconda-cloud-tools/tree/anaconda-cloud-v{{ version }}/libs/anaconda-cloud
 
 extra:
   recipe-maintainers:
     - albertdefusco
     - mattkram
-  skip-lints:
-    - missing_pip_check
