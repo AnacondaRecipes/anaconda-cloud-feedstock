@@ -11,6 +11,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<38]
   number: 0
 
 requirements:
@@ -22,7 +23,7 @@ requirements:
     - pip
   run:
     - python
-    - anaconda-cloud-auth 0.7.2
+    - anaconda-cloud-auth
     - anaconda-cli-base
     - anaconda-client >=1.12.2
     - conda
@@ -33,6 +34,8 @@ test:
     - anaconda_cloud
     - anaconda_cli_base
     - anaconda_cloud_auth
+    # binstar_client kept for backward compatibility
+    - binstar_client
   commands:
     - anaconda --version
     - python -c "from anaconda_cloud import __version__; assert __version__ == \"{{ version }}\""
@@ -49,7 +52,7 @@ about:
   license_file: LICENSE
   license_family: BSD
   doc_url: https://anaconda.cloud/
-  dev_url: https://inspector.pypi.io/project/anaconda-cloud
+  dev_url: https://github.com/anaconda/anaconda-cloud-tools/tree/anaconda-cloud-v{{ version }}/libs/anaconda-cloud
 
 extra:
   recipe-maintainers:
