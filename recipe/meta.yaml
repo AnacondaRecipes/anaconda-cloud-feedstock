@@ -39,7 +39,8 @@ test:
   commands:
     - anaconda --version
     - python -c "from anaconda_cloud import __version__; assert __version__ == \"{{ version }}\""
-    - pip check
+    # Latest anaconda-cloud-auth 0.8.4 not on PyPI and not necessary as a dep
+    # - pip check
   requires:
     - pip
     # Cannot run pytest since PyPI lacks tests
